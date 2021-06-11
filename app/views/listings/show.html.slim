@@ -1,20 +1,20 @@
-h1 Web File Manager
-
-table.table
-   thead
-    tr
-     th Files
-     th Size
-     th Updated time
-   tbody
-    - @files.each do |file|
+- cache @listing do
+  h1 Web File Manager
+  table.table
+     thead
       tr
-        -if file[:type] == 'directory'
-          td= link_to file[:name], root_path(path: file[:path])
-        -else
-          td = file[:name]
-        -if file[:name] == '..'
-          td = '-'
-        -else
-          td = number_to_human_size(file[:size], delimiter: " ")
-        td = file[:update_time]
+       th Files
+       th Size
+       th Updated time
+     tbody
+      - @listing.docs.each do |file|
+        tr
+          -if file[:type_doc] == 'directory'
+            td= link_to file[:name], root_path(path: file[:path])
+          -else
+            td = file[:name]
+          -if file[:name] == '..'
+            td = '-'
+          -else
+            td = number_to_human_size(file[:size], delimiter: " ")
+          td = file[:update_time]
